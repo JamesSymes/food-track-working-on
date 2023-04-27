@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const switchToLoginBtn = document.getElementById('switch-to-login-btn');
   var closeButtons = document.querySelectorAll('.close-btn');
   let editingFoodItem = null;
+  let editingFoodItemId;
+
+
 
 
   // Drag & Drop
@@ -162,23 +165,11 @@ window.addEventListener("click", (event) => {
  
 
  deleteFoodBtn.addEventListener('click', () => {
-  if (editingFoodItem) {
-    // Get the old values of calories and protein
-    const oldFoodCalories = parseInt(editingFoodItem.querySelector('.green-box').textContent);
-    const oldFoodProtein = parseInt(editingFoodItem.querySelector('.red-box').textContent);
-
-    // Update the current values of calories and protein
-    const currentCaloriesValue = parseInt(caloriesCurrentValue.textContent);
-    caloriesCurrentValue.textContent = currentCaloriesValue + oldFoodCalories;
-    const currentProteinValue = parseInt(proteinCurrentValue.textContent);
-    proteinCurrentValue.textContent = currentProteinValue + oldFoodProtein;
-
-    // Remove the food item from the list
-    foodList.removeChild(editingFoodItem);
+  const foodItemToRemove = foodList.querySelector(`[data-id="${editingFoodItemId}"]`);
+  if (foodItemToRemove) {
+    foodList.removeChild(foodItemToRemove);
   }
-  addFoodForm.reset();
-  addFoodModal.style.display = 'none';
-  editingFoodItem = null;
+  closeModal(deleteFoodModal);
 });
 
 
@@ -494,15 +485,18 @@ foodItem.addEventListener("click", () => {
   }
 
 // Add these helper functions at the bottom of your app.js file:
+let foodItemId = 0;
 function addFood(name, calories, protein) {
   const foodItem = document.createElement('div');
   foodItem.className = 'food-item';
+  foodItem.dataset.id = foodItemId++;
   foodItem.innerHTML = `
     <p class="food-name">${name}</p>
     <p class="green-box">${calories}</p>
     <p class="red-box">${protein}</p>
   `;
   foodItem.addEventListener('click', () => {
+    editingFoodItemId = foodItem.dataset.id;
     editingFoodItem = foodItem;
     foodNameInput.value = foodItem.querySelector('.food-name').textContent;
     foodCaloriesInput.value = foodItem.querySelector('.green-box').textContent;
@@ -513,4 +507,5 @@ function addFood(name, calories, protein) {
 }
 
  // Time section 2 end
-  
+
+});
