@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Food Tracker</title>
+  <!--local storage-->
+  <script>
+    if (typeof(Storage) !== "undefined") {
+      // Local storage is available
+      console.log("Local storage is available");
+    } else {
+      // Local storage is not available
+      console.log("Local storage is not available");
+    }
+  </script>
+    <!--Stop Zoom On Mobile Browser-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--Drag & Drop-->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+
+</head>
+<body>
+  <header>
+    <div class="button-container">
+      <!-- top right + button to open login modal -->
+      <button id="login-btn" class="modal-open-btn" data-target-modal="login-modal">+<br><p id="button-text">Login</p></button>
+      <!-- top right + button to open info modal -->
+      <button id="add-time-btn" class="modal-open-btn" data-target-modal="add-time-modal">+<br><p id="button-text">Info</p></button>
+      <!-- top right + button to open meal modal -->
+      <button id="add-food-btn" class="modal-open-btn" data-target-modal="add-food-modal">+<br><p id="button-text">Meal</p></button>
+    </div>
+  </header>
+  
+
+
+  <main>
+    <div id="food-list">
+    </div>
+    <div id="summary">
+      <div class="bottom-section">
+        <div id="calories-box">
+          <!-- <span>Calories: <span id="calories-value">3500</span></span> (This is before)-->
+          <span>Calories: <span id="calories-current-value">3500</span> / <span id="calories-target-value">3500</span></span>
+        </div>
+        <div id="protein-box">
+          <!-- <span>Protein: <span id="protein-value">150</span></span> -->
+          <span>Protein: <span id="protein-current-value">150</span> / <span id="protein-target-value">150</span></span>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+
+  <!-- Add Food Modal -->
+  <div id="add-food-modal" class="modal modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <form id="add-food-form">
+        <label for="food-name">Food Name:</label>
+        <input type="text" id="food-name" required>
+        <label for="food-calories">Calories:</label>
+        <input type="number" id="food-calories" required>
+        <label for="food-protein">Protein:</label>
+        <input type="number" id="food-protein" required>
+        <button id="add-food-modal-btn">Add</button>
+        <button id="delete-food-modal-btn" type="button" class="delete-btn">Delete</button>
+      </form>
+    </div>
+  </div>
+
+    <!-- Add Time Modal -->
+    <div id="add-time-modal" class="modal modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <form id="add-time-form">
+          <label for="time-name">Time *add meal or time:</label>
+          <input type="text" id="time-name" required>
+          <button id="add-time-modal-btn">Add</button>
+          <button id="delete-time-modal-btn" type="button" class="delete-btn">Delete</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+<div id="login-modal" class="modal modal-overlay">
+  <span class="close-btn">&times;</span>
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2>Login</h2>
+    <p>Login or create an account to save your meal plans</p>
+    <form id="login-form">
+      <label for="login-email">Email:</label>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button id="login-submit-btn">Login</button>
+      <button id="switch-to-signup-btn" type="button">Sign Up</button>
+    </form>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div id="signup-modal" class="modal modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <span class="close-btn">&times;</span>
+    <h2>Sign Up</h2>
+    <p>Create an account to save your meal plans</p>
+    <form id="signup-form">
+      <label for="signup-email">Email:</label>
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <label for="signup-password">Password:</label>
+      <input type="password" id="signup-password" placeholder="Create password" required>
+      <label for="signup-confirm-password">Confirm Password:</label>
+      <input type="password" id="signup-confirm-password" placeholder="Confirm password" required>
+      <button id="signup-submit-btn">Sign Up</button>
+      <button id="switch-to-login-btn" type="button">Login</button>
+    </form>
+  </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
